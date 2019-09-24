@@ -5,8 +5,6 @@ PGM = keeplog
 SRC1 = $(wildcard *.c)
 SRC = $(patsubst %.c,%,$(SRC1))
 
-all: $(PGM) $(SRC1)
-
 $(PGM): $(OBJECTS)
 	$(CC) $(OBJECTS) -o $@ 
 
