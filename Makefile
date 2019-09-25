@@ -22,7 +22,7 @@ OBJECTS = $(addsuffix .o,$(SRC))
 PGM = keeplog
 SRC1 = $(wildcard *.c)
 SRC = $(patsubst %.c,%,$(SRC1))
-#INCLUDE = $(HOME)/include/keeplog_helper.h
+INCLUDE = $(HOME)/include/keeplog_helper.h
 LIBS = -L$(HOME)/lib -lkeeplog_helper -llist
 
 all: $(PGM)
