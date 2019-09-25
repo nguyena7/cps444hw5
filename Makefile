@@ -1,23 +1,19 @@
 CC = gcc
-PGM = keeplog 
-C_FLAGS = -c
-INCLUDE = ~/include/
+C_FLAGS = -c -I$(HOME)/include/
+OBJECTS = $(addsuffix .o,$(SRC))
+PGM = keeplog
+SRC1 = $(wildcard *.c)
+SRC = $(patsubst %.c,%,$(SRC1))
+INCLUDE = $(HOME)/include/keeplog_helper.h
+LIBS = -L$(HOME)/lib -lkeeplog_helper -llist
 
 all: $(PGM)
 
-$(PGM): listlib.o keeplog.o keeplog_helper.o $(INCLUDE)liblist.a $(INCLUDE)libkeeplog_helper.a
+$(PGM): $(OBJECTS) 
+	$(CC) $(OBJECTS) $(LIBS) -o $@ 
 
-.c.o:
-	$(CC) $(C_FLAGS) $< -o $@
-
-$(INCLUDE)liblist.a: listlib.o
-	ar rcs $(INCLUDE)liblist.a listlib.o
-
-$(INCLUDE)libkeeplog_helper.a: keeplog_helper.o
-	ar rcs $(INCLUDE)libkeeplog_helper.a keeplog_helper.o	
-
-libs: ~/lib/liblist.a ~/include/libkeeplog_helper.a
-	
+$(PGM).o: $(PGM).c $(INCLUDE)
+	$(CC) $(C_FLAGS) $(PGM).c
 
 clean:
 	-rm *.o $(PGM)
