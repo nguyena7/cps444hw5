@@ -17,20 +17,20 @@
 #
 
 CC = gcc
-C_FLAGS = -c -I$(HOME)/include/
+C_FLAGS = -c 
 OBJECTS = $(addsuffix .o,$(SRC))
 PGM = keeplog
 SRC1 = $(wildcard *.c)
 SRC = $(patsubst %.c,%,$(SRC1))
-#INCLUDE = $(HOME)/include/keeplog_helper.h
-LIBS = -L$(HOME)/lib -lkeeplog_helper -llist
+LIBS = -lkeeplog_helper -llist
+INCLUDE = $(HOME)/include/keeplog_helper.h
 
 all: $(PGM)
 
 $(PGM): $(OBJECTS) 
 	$(CC) $(OBJECTS) $(LIBS) -o $@ 
 
-$(PGM).o: $(PGM).c $(INCLUDE)
+$(PGM).o: $(PGM).c $(INCLUDE) 
 	$(CC) $(C_FLAGS) $(PGM).c
 
 clean:
